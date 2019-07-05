@@ -1,5 +1,6 @@
 package com.elhawary.semsar.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -31,6 +32,10 @@ public class Buildings {
 	@OrderBy("productName asc")
 	private String buildingName;
 
+	private Date createdDate ;
+	
+	private Date updatedDate ;
+	
 	private String adsTopic ;
 	
 	private String purpose ;
@@ -362,4 +367,21 @@ public class Buildings {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+	
 }

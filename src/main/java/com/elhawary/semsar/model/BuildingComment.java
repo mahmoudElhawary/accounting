@@ -19,92 +19,92 @@ import javax.persistence.Table;
 @Table
 public class BuildingComment {
 
-	 @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
-	    private Long commentId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long commentId;
 
-	    @Column(columnDefinition = "TEXT")
-	    private String commentCotents;
-  
-	    private int commentStarts;
+	@Column(columnDefinition = "TEXT")
+	private String commentCotents;
 
-	    @Lob
-	    @Basic(fetch=FetchType.EAGER)
-	    private byte[] commentPhoto ;
-	    
-	    private long commentCount = 0 ;
-	    
-	    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	    @JoinColumn(name = "buildingsId")
-	    private Buildings buildings;
-	    
-	    @ManyToOne
-	    private User user;
+	private int commentStarts;
 
-	    @Column(columnDefinition="DATETIME")
-	    private Date commentDate;
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
+	private byte[] commentPhoto;
 
-		public Long getCommentId() {
-			return commentId;
-		}
+	private long commentCount = 0;
 
-		public void setCommentId(Long commentId) {
-			this.commentId = commentId;
-		}
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "buildingsId")
+	private Buildings buildings;
 
-		public String getCommentCotents() {
-			return commentCotents;
-		}
+	@ManyToOne
+	private User user;
 
-		public void setCommentCotents(String commentCotents) {
-			this.commentCotents = commentCotents;
-		}
+	@Column(columnDefinition = "DATETIME")
+	private Date commentDate;
 
-		public int getCommentStarts() {
-			return commentStarts;
-		}
+	public Long getCommentId() {
+		return commentId;
+	}
 
-		public void setCommentStarts(int commentStarts) {
-			this.commentStarts = commentStarts;
-		}
+	public void setCommentId(Long commentId) {
+		this.commentId = commentId;
+	}
 
-		public byte[] getCommentPhoto() {
-			return commentPhoto;
-		}
+	public String getCommentCotents() {
+		return commentCotents;
+	}
 
-		public void setCommentPhoto(byte[] commentPhoto) {
-			this.commentPhoto = commentPhoto;
-		}
+	public void setCommentCotents(String commentCotents) {
+		this.commentCotents = commentCotents;
+	}
 
-		public long getCommentCount() {
-			return commentCount;
-		}
+	public int getCommentStarts() {
+		return commentStarts;
+	}
 
-		public void setCommentCount(long commentCount) {
-			this.commentCount = commentCount;
-		}
+	public void setCommentStarts(int commentStarts) {
+		this.commentStarts = commentStarts;
+	}
 
-		public Buildings getBuildings() {
-			return buildings;
-		}
+	public byte[] getCommentPhoto() {
+		return commentPhoto;
+	}
 
-		public void setBuildings(Buildings buildings) {
-			this.buildings = buildings;
-		}
+	public void setCommentPhoto(byte[] commentPhoto) {
+		this.commentPhoto = commentPhoto;
+	}
 
-		public User getUser() {
-			return user;
-		}
+	public long getCommentCount() {
+		return commentCount;
+	}
 
-		public void setUser(User user) {
-			this.user = user;
-		}
+	public void setCommentCount(long commentCount) {
+		this.commentCount = commentCount;
+	}
 
-		public Date getCommentDate() {
-			return commentDate;
-		}
+	public Buildings getBuildings() {
+		return buildings;
+	}
 
-		public void setCommentDate(Date commentDate) {
-			this.commentDate = commentDate;
-		}
+	public void setBuildings(Buildings buildings) {
+		this.buildings = buildings;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Date getCommentDate() {
+		return commentDate;
+	}
+
+	public void setCommentDate(Date commentDate) {
+		this.commentDate = commentDate;
+	}
 }
