@@ -1,11 +1,15 @@
 package com.elhawary.semsar.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -17,8 +21,9 @@ public class BuildingDepartment {
 	
 	private String buildingDepartment ;
 	
-	@OneToOne(targetEntity=Buildings.class) 
-    private Buildings buildings;
+	@OneToMany(mappedBy = "buildingsId")
+    @JsonIgnore
+    private List<Buildings> buildings;
 
 	public Long getBuildingDepartmentId() {
 		return buildingDepartmentId;
@@ -36,13 +41,12 @@ public class BuildingDepartment {
 		this.buildingDepartment = buildingDepartment;
 	}
 
-	public Buildings getBuildings() {
+	public List<Buildings> getBuildings() {
 		return buildings;
 	}
 
-	public void setBuildings(Buildings buildings) {
+	public void setBuildings(List<Buildings> buildings) {
 		this.buildings = buildings;
 	}
-
 
 }

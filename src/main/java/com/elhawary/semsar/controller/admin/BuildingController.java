@@ -29,7 +29,7 @@ public class BuildingController {
 	@Autowired
 	private BuildingsService buildingsService;
 
-	@PostMapping("/findAllByBuildingDepartment")
+	@PostMapping("/createBuilding")
 	public ResponseEntity<List<Buildings>> createBuilding(
 			@RequestParam("buildingFiles") List<MultipartFile> buildingFiles, @RequestParam("building") String building,
 			@RequestParam("user") String user) throws JsonParseException, JsonMappingException, IOException {
@@ -102,7 +102,7 @@ public class BuildingController {
 		return new ResponseEntity<List<Buildings>>(buildings, HttpStatus.OK);
 	}
 
-	@GetMapping("/getAllBuildings")
+	@GetMapping("/getAllBuildingsByMaxContractCount")
 	public ResponseEntity<List<Buildings>> getAllBuildingsByMaxContractCount() {
 		List<Buildings> buildings = buildingsService.findTop18ByOrderByBuildingContractCountDesc();
 		return new ResponseEntity<List<Buildings>>(buildings, HttpStatus.OK);

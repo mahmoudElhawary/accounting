@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -81,17 +80,13 @@ public class Buildings {
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private double buildingPrice;
 
-	@OneToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "buildings", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<BuildingComment> buildingComments;
 
 	@OneToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<BuildingPhoto> buildingPhotos;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "buildingAddressId")
-	private BuildingAddress buildingAddress;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "buildingFeaturesId")
@@ -113,8 +108,12 @@ public class Buildings {
 	@JoinColumn(name = "buildingTransportationNearbyId")
 	private BuildingTransportationNearby buildingTransportationNearby;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "buildingAddressId")
+	private BuildingAddress buildingAddress;
 	
-	@OneToOne(targetEntity=BuildingDepartment.class,cascade=CascadeType.ALL) 
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "buildingDepartmentId")
 	private BuildingDepartment buildingDepartment;
 	
 	@ManyToOne
