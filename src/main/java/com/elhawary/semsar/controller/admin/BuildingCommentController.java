@@ -84,14 +84,13 @@ public class BuildingCommentController {
 		}
 	}
 
-	@GetMapping("/productComments/{id}")
-	public ResponseEntity<List<BuildingComment>> getproductComments(@PathVariable("id") Long id) {
+	@GetMapping("/getCommentById/{id}")
+	public ResponseEntity<List<BuildingComment>> getCommentById(@PathVariable("id") Long id) {
 		if (id != null) {
 			List<BuildingComment> comments = buildingCommentRepository.findAllByBuildingsBuildingsId(id);
 			return new ResponseEntity<List<BuildingComment>>(comments, HttpStatus.OK);
 		} else {
 			return null;
 		}
-
 	}
 }

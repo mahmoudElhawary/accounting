@@ -3,7 +3,6 @@ package com.elhawary.semsar.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -48,7 +46,7 @@ public class Buildings {
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private int bathroomNumber ;
 	@Min(value = 0, message = "Product price must no be less then zero.")
-	private int foorNumber ;
+	private int floorNumber ;
 	
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private int constructionYear ;
@@ -67,28 +65,30 @@ public class Buildings {
 	
 	private String furniture ;
 	
-	@Lob
-	@Basic(fetch = FetchType.EAGER)
-	private byte[] buildingPhoto;
-
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private int buildingRate;
 
 
 	@Column(name = "buildingView", nullable = false, columnDefinition = "bigint(20) default 0")
 	private long buildingView = 0;
+	
+	@Column(name = "buildingContractCount", nullable = false, columnDefinition = "bigint(20) default 0")
+	private long buildingContractCount = 0;
+	
+	@Column(name = "buildingSearchCount", nullable = false, columnDefinition = "bigint(20) default 0")
+	private long buildingSearchCount = 0;
 
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private double buildingPrice;
-	@Min(value = 0, message = "Product price must no be less then zero.")
-	private double minBuildingPrice;
-	@Min(value = 0, message = "Product price must no be less then zero.")
-	private double maxBuildingPrice;
 
 	@OneToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<BuildingComment> buildingComments;
 
+	@OneToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
+	@JsonIgnore
+	private List<BuildingPhoto> buildingPhotos;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "buildingAddressId")
 	private BuildingAddress buildingAddress;
@@ -176,12 +176,12 @@ public class Buildings {
 		this.bathroomNumber = bathroomNumber;
 	}
 
-	public int getFoorNumber() {
-		return foorNumber;
+	public int getFloorNumber() {
+		return floorNumber;
 	}
 
-	public void setFoorNumber(int foorNumber) {
-		this.foorNumber = foorNumber;
+	public void setFloorNumber(int floorNumber) {
+		this.floorNumber = floorNumber;
 	}
 
 	public int getConstructionYear() {
@@ -248,12 +248,12 @@ public class Buildings {
 		this.furniture = furniture;
 	}
 
-	public byte[] getBuildingPhoto() {
-		return buildingPhoto;
+	public List<BuildingPhoto> getBuildingPhotos() {
+		return buildingPhotos;
 	}
 
-	public void setBuildingPhoto(byte[] buildingPhoto) {
-		this.buildingPhoto = buildingPhoto;
+	public void setBuildingPhotos(List<BuildingPhoto> buildingPhotos) {
+		this.buildingPhotos = buildingPhotos;
 	}
 
 	public int getBuildingRate() {
@@ -278,22 +278,6 @@ public class Buildings {
 
 	public void setBuildingPrice(double buildingPrice) {
 		this.buildingPrice = buildingPrice;
-	}
-
-	public double getMinBuildingPrice() {
-		return minBuildingPrice;
-	}
-
-	public void setMinBuildingPrice(double minBuildingPrice) {
-		this.minBuildingPrice = minBuildingPrice;
-	}
-
-	public double getMaxBuildingPrice() {
-		return maxBuildingPrice;
-	}
-
-	public void setMaxBuildingPrice(double maxBuildingPrice) {
-		this.maxBuildingPrice = maxBuildingPrice;
 	}
 
 	public List<BuildingComment> getBuildingComments() {
@@ -383,5 +367,22 @@ public class Buildings {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+
+	public long getBuildingContractCount() {
+		return buildingContractCount;
+	}
+
+	public void setBuildingContractCount(long buildingContractCount) {
+		this.buildingContractCount = buildingContractCount;
+	}
+
+	public long getBuildingSearchCount() {
+		return buildingSearchCount;
+	}
+
+	public void setBuildingSearchCount(long buildingSearchCount) {
+		this.buildingSearchCount = buildingSearchCount;
+	}
+	
 	
 }
