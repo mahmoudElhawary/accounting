@@ -18,8 +18,8 @@ public interface BuildingsService {
 
 	List<Buildings> findAllByUserRole(String role);
 
-	List<Buildings> findAllByUserId(Long id) ;
-	
+	List<Buildings> findAllByUserId(Long id);
+
 	List<Buildings> findAllByBuildingDepartmentBuildingDepartment(String department);
 
 	List<Buildings> findTop18ByOrderByCreatedDateDesc();

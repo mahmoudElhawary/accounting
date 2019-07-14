@@ -1,5 +1,7 @@
 package com.elhawary.semsar.model;
 
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -28,6 +33,14 @@ public class BuildingPhoto {
 	@JoinColumn(name = "buildingsId")
 	private Buildings buildings;
 
+	public Buildings getBuildings() {
+		return buildings;
+	}
+
+	public void setBuildings(Buildings buildings) {
+		this.buildings = buildings;
+	}
+
 	public Long getBuildingPhotoId() {
 		return buildingPhotoId;
 	}
@@ -42,13 +55,5 @@ public class BuildingPhoto {
 
 	public void setBuildingPhoto(byte[] buildingPhoto) {
 		this.buildingPhoto = buildingPhoto;
-	}
-
-	public Buildings getBuildings() {
-		return buildings;
-	}
-
-	public void setBuildings(Buildings buildings) {
-		this.buildings = buildings;
 	}
 }

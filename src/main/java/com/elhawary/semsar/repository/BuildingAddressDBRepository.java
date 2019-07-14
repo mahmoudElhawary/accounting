@@ -15,6 +15,8 @@ public interface BuildingAddressDBRepository extends CrudRepository<BuildingAddr
 	
 	List<BuildingAddressDB> findAllBySubGovernorate(String subGovernorate);
 	
+	List<BuildingAddressDB> findAllBySubGovernorateAndMainGovernorate(String subGovernorate , String mainGovernorate);
+	
 	List<BuildingAddressDB> findAllByNeighborhood(String neighborhood);
 	
 	@Query(value = "SELECT DISTINCT main_governorate from building_addressdb" , nativeQuery = true)

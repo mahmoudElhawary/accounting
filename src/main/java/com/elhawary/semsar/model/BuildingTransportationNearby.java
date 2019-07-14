@@ -1,10 +1,15 @@
 package com.elhawary.semsar.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
@@ -22,6 +27,16 @@ public class BuildingTransportationNearby {
 	private String trainStation;
 	private String airport;
 	
+	@OneToMany(mappedBy = "buildingsId")
+    @JsonIgnore
+    private List<Buildings> buildings;
+	
+	public List<Buildings> getBuildings() {
+		return buildings;
+	}
+	public void setBuildings(List<Buildings> buildings) {
+		this.buildings = buildings;
+	}
 	public Long getBuildingTransportationNearbyId() {
 		return buildingTransportationNearbyId;
 	}
@@ -70,4 +85,5 @@ public class BuildingTransportationNearby {
 	public void setAirport(String airport) {
 		this.airport = airport;
 	}
+	
 }

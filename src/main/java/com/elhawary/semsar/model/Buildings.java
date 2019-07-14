@@ -3,6 +3,7 @@ package com.elhawary.semsar.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -36,6 +38,7 @@ public class Buildings {
 	private String adsTopic ;
 	
 	private String purpose ;
+	
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private double area ;
 	
@@ -79,14 +82,17 @@ public class Buildings {
 
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private double buildingPrice;
+	
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
+	private byte[] buildingPhoto;
 
 	@OneToMany(mappedBy = "buildings", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<BuildingComment> buildingComments;
 
-	@OneToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
-	@JsonIgnore
-	private List<BuildingPhoto> buildingPhotos;
+//	@OneToMany(mappedBy = "buildings", fetch = FetchType.EAGER)
+//	private List<BuildingPhoto> buildingPhotos;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "buildingFeaturesId")
@@ -247,13 +253,13 @@ public class Buildings {
 		this.furniture = furniture;
 	}
 
-	public List<BuildingPhoto> getBuildingPhotos() {
-		return buildingPhotos;
-	}
-
-	public void setBuildingPhotos(List<BuildingPhoto> buildingPhotos) {
-		this.buildingPhotos = buildingPhotos;
-	}
+//	public List<BuildingPhoto> getBuildingPhotos() {
+//		return buildingPhotos;
+//	}
+//
+//	public void setBuildingPhotos(List<BuildingPhoto> buildingPhotos) {
+//		this.buildingPhotos = buildingPhotos;
+//	}
 
 	public int getBuildingRate() {
 		return buildingRate;
@@ -382,6 +388,13 @@ public class Buildings {
 	public void setBuildingSearchCount(long buildingSearchCount) {
 		this.buildingSearchCount = buildingSearchCount;
 	}
-	
+
+	public byte[] getBuildingPhoto() {
+		return buildingPhoto;
+	}
+
+	public void setBuildingPhoto(byte[] buildingPhoto) {
+		this.buildingPhoto = buildingPhoto;
+	}
 	
 }

@@ -18,6 +18,8 @@ public interface BuildingAddressDBService {
 	
 	List<BuildingAddressDB> findAllBySubGovernorate(String subGovernorate);
 	
+	List<BuildingAddressDB> findAllBySubGovernorateAndMainGovernorate(String subGovernorate , String mainGovernorate);
+	
 	BuildingAddressDB save(BuildingAddressDB category);
 	
 	BuildingAddressDB update(BuildingAddressDB category);

@@ -62,6 +62,18 @@ public class BuildingAddressDBController {
 		return new ResponseEntity<List<BuildingAddressDB>>(buildingAddressDBs, HttpStatus.OK);
 	}
 
+	@PostMapping("/findAllBySubGovernorateAndMainGovernorate")
+	public ResponseEntity<List<BuildingAddressDB>> findAllBySubGovernorateAndMainGovernorate(
+			@RequestParam("subGovernorate") String subGovernorate,
+			@RequestParam("mainGovernorate") String mainGovernorate)
+			throws JsonParseException, JsonMappingException, IOException {
+		String sub = new ObjectMapper().readValue(subGovernorate, String.class);
+		String main = new ObjectMapper().readValue(mainGovernorate, String.class);
+		List<BuildingAddressDB> buildingAddressDBs = buildingAddressDBService
+				.findAllBySubGovernorateAndMainGovernorate(sub, main);
+		return new ResponseEntity<List<BuildingAddressDB>>(buildingAddressDBs, HttpStatus.OK);
+	}
+
 	@PostMapping("/createBuildingAddressDB")
 	public ResponseEntity<List<BuildingAddressDB>> createBuildingAddressDB(
 			@RequestBody BuildingAddressDB buildingAddressDB) {

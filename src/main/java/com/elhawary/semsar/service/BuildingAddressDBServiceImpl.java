@@ -66,4 +66,10 @@ public class BuildingAddressDBServiceImpl implements BuildingAddressDBService{
 	public BuildingAddressDB getCategoryById(Long id) {
 		return buildingAddressDBRepository.findById(id).get() ;
 	}
+
+	@Override
+	public List<BuildingAddressDB> findAllBySubGovernorateAndMainGovernorate(String subGovernorate,
+			String mainGovernorate) {
+		return buildingAddressDBRepository.findAllBySubGovernorateAndMainGovernorate(subGovernorate, mainGovernorate);
+	}
 }

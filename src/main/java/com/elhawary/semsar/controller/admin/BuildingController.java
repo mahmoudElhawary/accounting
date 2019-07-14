@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.elhawary.semsar.domain.Response;
-import com.elhawary.semsar.model.BuildingPhoto;
 import com.elhawary.semsar.model.Buildings;
-import com.elhawary.semsar.model.User;
 import com.elhawary.semsar.service.BuildingsService;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -29,24 +27,46 @@ public class BuildingController {
 	@Autowired
 	private BuildingsService buildingsService;
 
+//	@Autowired
+//	private BuildingPhotoRepository buildingPhotoRepository ;
 	@PostMapping("/createBuilding")
-	public ResponseEntity<List<Buildings>> createBuilding(
-			@RequestParam("buildingFiles") List<MultipartFile> buildingFiles, @RequestParam("building") String building,
-			@RequestParam("user") String user) throws JsonParseException, JsonMappingException, IOException {
-		if (building == null) {
+	public ResponseEntity<Response> createBuilding(@RequestParam("buildingFiles") MultipartFile buildingFiles,
+			@RequestParam("building") String building) throws JsonParseException, JsonMappingException, IOException {
+		if (building == null || buildingFiles == null) {
 			throw new NullPointerException();
 		}
-		User userData = new ObjectMapper().readValue(user, User.class);
-		Buildings buildingData = new ObjectMapper().readValue(user, Buildings.class);
-		
-		for (BuildingPhoto buildingPhoto : buildingData.getBuildingPhotos()) {
-			for (MultipartFile multipartFile : buildingFiles) {
-				buildingPhoto.setBuildingPhoto(multipartFile.getBytes());
-			}
+		Buildings buildingData = new ObjectMapper().readValue(building, Buildings.class);
+		buildingData.setBuildingPhoto(buildingFiles.getBytes());
+		buildingsService.saveBuildings(buildingData);
+		return new ResponseEntity<Response>(new Response("created successfully"), HttpStatus.OK);
+	}
+
+	@PostMapping("/updateBuilding")
+	public ResponseEntity<Response> updateBuilding(@RequestParam("buildingFiles") MultipartFile buildingFiles,
+			@RequestParam("building") String building) throws JsonParseException, JsonMappingException, IOException {
+		if (building == null || buildingFiles == null) {
+			throw new NullPointerException();
 		}
-		buildingsService.saveBuildings(buildingData) ;
-		List<Buildings> buildings = buildingsService.findAllByUserId(userData.getId());
-		return new ResponseEntity<List<Buildings>>(buildings, HttpStatus.OK);
+		Buildings buildingData = new ObjectMapper().readValue(building, Buildings.class);
+		buildingData.setBuildingPhoto(buildingFiles.getBytes());
+		buildingsService.updateBuildings(buildingData);
+		return new ResponseEntity<Response>(new Response("updated successfully"), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/addBuildingRating")
+	public ResponseEntity<Buildings> addBuildingRating(@RequestParam("building") String buildingRest,
+			@RequestParam("rating") String rating) throws JsonParseException, JsonMappingException, IOException {
+		if (buildingRest != null && rating != null) {
+			Buildings buildings = new ObjectMapper().readValue(buildingRest, Buildings.class);
+			int rat = new ObjectMapper().readValue(rating, Integer.class);
+			int rate = Math.round(((rat + buildings.getBuildingRate()) / 2));
+			buildings.setBuildingRate(rate);
+			buildingsService.saveBuildings(buildings);
+			Buildings buildingResponse = buildingsService.findById(buildings.getBuildingsId());
+			return new ResponseEntity<Buildings>(buildingResponse, HttpStatus.OK);
+		} else {
+			return null;
+		}
 	}
 
 	@PostMapping("/findAllByBuildingDepartment")
@@ -81,6 +101,15 @@ public class BuildingController {
 	@GetMapping("/getAllBuildings")
 	public ResponseEntity<List<Buildings>> getAllBuildings() {
 		List<Buildings> buildings = buildingsService.findAll();
+		return new ResponseEntity<List<Buildings>>(buildings, HttpStatus.OK);
+	}
+
+	@GetMapping("/getAllBuildingsByUserId/{id}")
+	public ResponseEntity<List<Buildings>> getAllBuildingsByUserId(@PathVariable("id") Long id) {
+		if (id == null) {
+			throw new NullPointerException();
+		}
+		List<Buildings> buildings = buildingsService.findAllByUserId(id);
 		return new ResponseEntity<List<Buildings>>(buildings, HttpStatus.OK);
 	}
 

@@ -13,8 +13,8 @@ import com.elhawary.semsar.repository.BuildingsRepository;
 public class BuildingsServiceImpl implements BuildingsService {
 
 	@Autowired
-	private BuildingsRepository buildingsRepository ;
-	
+	private BuildingsRepository buildingsRepository;
+
 	@Override
 	public List<Buildings> findAll() {
 		return (List<Buildings>) buildingsRepository.findAll();
