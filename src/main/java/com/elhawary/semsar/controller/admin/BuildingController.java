@@ -59,7 +59,12 @@ public class BuildingController {
 		if (buildingRest != null && rating != null) {
 			Buildings buildings = new ObjectMapper().readValue(buildingRest, Buildings.class);
 			int rat = new ObjectMapper().readValue(rating, Integer.class);
-			int rate = Math.round(((rat + buildings.getBuildingRate()) / 2));
+			int rate ;
+			if (buildings.getBuildingRate() == 0) {
+				 rate = Math.round(rat + buildings.getBuildingRate());
+			} else {
+				rate = Math.round(((rat + buildings.getBuildingRate()) / 2));
+			}
 			buildings.setBuildingRate(rate);
 			buildingsService.saveBuildings(buildings);
 			Buildings buildingResponse = buildingsService.findById(buildings.getBuildingsId());
@@ -82,6 +87,8 @@ public class BuildingController {
 	public ResponseEntity<Buildings> getBuildingById(@PathVariable("id") Long id) {
 		if (id != null) {
 			Buildings buildings = buildingsService.findById(id);
+			buildings.setBuildingView(buildings.getBuildingView() + 1);
+			buildingsService.saveBuildings(buildings) ;
 			return new ResponseEntity<Buildings>(buildings, HttpStatus.OK);
 		} else {
 			return null;
