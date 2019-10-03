@@ -13,4 +13,5 @@ public interface BillSellingRepository extends CrudRepository<BillSelling, Long>
 
 	List<BillSelling> findAllByUser(User user) ;
 	List<BillSelling> findByProductProductNameContainingAndUserId(String name,Long id) ;
+	List<BillSelling> findAllByClientNameContaining(String name) ;
 }

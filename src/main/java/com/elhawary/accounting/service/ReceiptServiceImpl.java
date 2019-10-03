@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.elhawary.accounting.model.Product;
 import com.elhawary.accounting.model.Receipt;
 import com.elhawary.accounting.model.User;
 import com.elhawary.accounting.repository.ReceiptRepository;
@@ -61,6 +62,22 @@ public class ReceiptServiceImpl implements ReceiptService {
 			throw new NullPointerException();
 		}
 		return receiptRepository.findByProductProductNameContainingAndUserId(name, id);
+	}
+
+	@Override
+	public List<Receipt> findAllBySupplierNameContaining(String name) {
+		if (name == null) {
+			throw new NullPointerException();
+		}
+		return receiptRepository.findAllBySupplierNameContaining(name) ;
+	}
+
+	@Override
+	public Receipt findByProductProductName(String name) {
+		if (name == null) {
+			throw new NullPointerException();
+		}
+		return receiptRepository.findByProductProductName(name) ;
 	}
 
 }

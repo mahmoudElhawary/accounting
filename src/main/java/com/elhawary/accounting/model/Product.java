@@ -38,6 +38,9 @@ public class Product implements Serializable{
 	
 	@Column(name = "productSellCount", nullable = false, columnDefinition = "bigint(20) default 0")
 	private int productSellCount ;
+	
+	@Column(name = "productBuyCount", nullable = false, columnDefinition = "bigint(20) default 0")
+	private int productBuyCount ;
 
 	@Min(value = 0, message = "Product price must no be less then zero.")
 	private double productBuyPrice;
@@ -137,12 +140,12 @@ public class Product implements Serializable{
 		this.productSellPrice3 = productSellPrice3;
 	}
 
-//	public Receipt getReceipt() {
-//		return receipt;
-//	}
-//
-//	public void setReceipt(Receipt receipt) {
-//		this.receipt = receipt;
-//	}
+	public int getProductBuyCount() {
+		return productBuyCount;
+	}
+
+	public void setProductBuyCount(int productBuyCount) {
+		this.productBuyCount = productBuyCount;
+	}
 	
 }

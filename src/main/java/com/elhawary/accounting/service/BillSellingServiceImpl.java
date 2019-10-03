@@ -1,11 +1,13 @@
 package com.elhawary.accounting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.elhawary.accounting.model.BillSelling;
+import com.elhawary.accounting.model.User;
 import com.elhawary.accounting.repository.BillSellingRepository;
 
 @Service
@@ -19,6 +21,7 @@ public class BillSellingServiceImpl implements BillSellingService {
 		if (billSelling == null) {
 			throw new NullPointerException();
 		}
+		billSelling.setCreatedDate(new Date());
 		return billSellingRepository.save(billSelling);
 	}
 
@@ -42,6 +45,22 @@ public class BillSellingServiceImpl implements BillSellingService {
 			throw new NullPointerException();
 		}
 		billSellingRepository.deleteById(id);
+	}
+
+	@Override
+	public List<BillSelling> findAllByUser(User user) {
+		if (user == null) {
+			throw new NullPointerException();
+		}
+		return billSellingRepository.findAllByUser(user);
+	}
+
+	@Override
+	public List<BillSelling> findAllByClientNameContaining(String name) {
+		if (name == null) {
+			throw new NullPointerException();
+		}
+		return billSellingRepository.findAllByClientNameContaining(name) ;
 	}
 
 }
